@@ -26,6 +26,7 @@ static struct ima_template_desc builtin_templates[] = {
 	{.name = "ima-modsig", .fmt = "d-ng|n-ng|sig|d-modsig|modsig"},
 	{.name = "evm-sig",
 	 .fmt = "d-ng|n-ng|evmsig|xattrnames|xattrlengths|xattrvalues|iuid|igid|imode"},
+	{.name = "ima-ppid", .fmt = "ppid|plid|pljobnames|pljobid|d-ng|n-ng|plcommand"},
 	{.name = "", .fmt = ""},	/* placeholder for a custom format */
 };
 
@@ -69,6 +70,21 @@ static const struct ima_template_field supported_fields[] = {
 	{.field_id = "xattrvalues",
 	 .field_init = ima_eventinodexattrvalues_init,
 	 .field_show = ima_show_template_sig},
+	{.field_id = "ppid",
+	 .field_init = ima_eventpid_init,
+	 .field_show = ima_show_template_string},
+	{.field_id = "plid",
+	 .field_init = ima_pipelineid_init,
+	 .field_show = ima_show_template_string},
+	{.field_id = "pljobnames",
+	 .field_init = ima_pipeline_jobname_init,
+	 .field_show = ima_show_template_string},
+	{.field_id = "pljobid",
+	 .field_init = ima_pipeline_jobid_init,
+	 .field_show = ima_show_template_string},
+	{.field_id = "pljobdone",
+	 .field_init = ima_check_pipeline_jobend,
+	 .field_show = ima_show_template_string},
 };
 
 /*
@@ -77,7 +93,7 @@ static const struct ima_template_field supported_fields[] = {
  * description as 'd-ng' and 'n-ng' respectively.
  */
 #define MAX_TEMPLATE_NAME_LEN \
-	sizeof("d-ng|n-ng|evmsig|xattrnames|xattrlengths|xattrvalues|iuid|igid|imode")
+	sizeof("d-ng|n-ng|evmsig|xattrnames|xattrlengths|xattrvalues|iuid|igid|imode|ppid|plid|pljobnames|pljobid|pljobdone")
 
 static struct ima_template_desc *ima_template;
 static struct ima_template_desc *ima_buf_template;

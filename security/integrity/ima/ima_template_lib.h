@@ -66,4 +66,14 @@ int ima_eventinodexattrlengths_init(struct ima_event_data *event_data,
 				    struct ima_field_data *field_data);
 int ima_eventinodexattrvalues_init(struct ima_event_data *event_data,
 				   struct ima_field_data *field_data);
+int ima_eventpid_init(struct ima_event_data *event_data,
+		      struct ima_field_data *field_data);
+int ima_pipelineid_init(struct ima_event_data *event_data,
+			struct ima_field_data *field_data);
+int ima_pipeline_jobname_init(struct ima_event_data *event_data,
+			      struct ima_field_data *field_data);
+int ima_pipeline_jobid_init(struct ima_event_data *event_data,
+			    struct ima_field_data *field_data);		
+int ima_check_pipeline_jobend(struct ima_event_data *event_data,
+			      struct ima_field_data *field_data);
 #endif /* __LINUX_IMA_TEMPLATE_LIB_H */
